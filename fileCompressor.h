@@ -7,7 +7,7 @@
 
 
 // heap.c method signatures
-typedef struct{
+typedef struct node{
     char* word;
     int freq;
     struct node* left;
@@ -31,3 +31,13 @@ void createHeap();
 
 
 // hashmap.c method signatures
+
+
+
+
+
+//huffmanBuilder.c method signatures
+
+node getSubtree();
+
+void createHuffmanTree();

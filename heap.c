@@ -1,17 +1,11 @@
 #include "fileCompressor.h"
-
-
 /*
-
 
 USE AN ARRAY OF STRUCT NODES, FORGET ABOUT SUBTREE CHILDREN, AS THEY ARE GOING TO BE STORED IMPLICITLY BY TREE HEAD NODE. 
 
 ORIGINALLY, NO WORD IS GOING TO HAVE A RIGHT OR LEFT CHILD, THESE CHILDREN ONLY ARE USED FOR THE SUBTREES WITH HEAD NODE STORING FREQUENCY AND EMPTY STRING
 
 */
-
-
-
 
 node* head;
 
@@ -95,13 +89,14 @@ void insert(node* n){
 
 node removeMin(){
     if (firstAvailable == 0){
-        node empty = {};
-        return empty;
+        node temp = {};
+        return temp;
     }
     node removed = head[0];
     head[0] = head[firstAvailable - 1];
     heapSortDeletion();
     firstAvailable--;
+//    printHeap();
     return removed;
 }
 
@@ -127,16 +122,9 @@ void createHeap(){
     for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
         insert(&arr[m]);
     }
-    
-    for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
-        // printHeap();
-        // printf("\n");
-        // removeMin();
-        // printf("a\n");
-        // printHeap();
-        // printf("a\n");
-        // printf("\n\n\n\n\n");
-        node ret = removeMin();
-        printf("%s\n", ret.word);
-    }
+    // for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
+    //     //printHeap();
+    //     printf("%s\n", removeMin() -> word);
+    //     printf("\n\n");
+    // }
 }
