@@ -103,7 +103,6 @@ node removeMin(){
 
 void createHeap(){
     head = (node*) calloc(sizeOfArray, sizeof(node));
-    int i;
 
     node a = {"a", 5};
     node b = {"dog", 9};
@@ -111,12 +110,12 @@ void createHeap(){
     node d = {"button", 13};
     node e = {"ball", 16};
     node f = {"and", 45};
-    // node g = {"and1", 45};
-    // node h = {"and2", 45};
-    // node i = {"and3", 45};
-    // node j = {"and4", 45};
-    // node k = {"and5", 45};
-    // node l = {"and6", 45};
+    // node g = {"and1", 64};
+    // node h = {"and2", 2};
+    // node i = {"and3", 43};
+    // node j = {"and4", 56};
+    // node k = {"and5", 92};
+    // node l = {"and6", 1};
     node arr[6] = {c, a, e, d, b, f};
     int m;
     for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
