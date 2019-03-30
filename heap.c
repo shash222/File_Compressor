@@ -7,7 +7,8 @@ int firstAvailable = 0;
 int sizeOfArray = 11;
 
 void printHeap(){
-    for (int i = 0; i < firstAvailable; i++){
+    int i;
+    for (i = 0; i < firstAvailable; i++){
         printf("%s %d\n", head[i].word, head[i].freq);
     }
 }

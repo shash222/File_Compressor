@@ -11,9 +11,10 @@ int maxCharacters;
 
 // returns code for single word
 char* getSingleCode(char* word){
+    if (word == NULL) return "";
     int i;
     for (i = 0; i < numPairs; i++){
-        printf("%s\n", pairs[i].code);
+        if(strcmp(pairs[i].word, word) == 0) return pairs[i].code;
     }
 }
 
@@ -38,11 +39,10 @@ void compressString(char* file){
         read(fd, c, 1);
         strcat(input,c);
     }
-    token = strtok(input, " ");
+//    int fd = creat(strcat(file, ".hcz"), );
     for(i = 0; i < spaces; i++){
-        
+        printf("%s", getSingleCode(i == 0 ? strtok(input, " ") : strtok(NULL, " ")));
     }
-    getSingleCode("abc");
     pairs;
 }
 
@@ -79,8 +79,8 @@ void readFile(int fd){
         if (strcmp(c, "\n") == 0){
             char* set = strtok(word, "\t");
             pair p;
-            p.code = set;
-            p.word = strtok(NULL, "\t");
+            p.code = strdup(set);
+            p.word = strdup(strtok(NULL, "\t"));
             pairs[pairsCount++] = p;
             strcpy(word, "");
         }

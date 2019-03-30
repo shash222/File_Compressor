@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <string.h>
-#include <io.h>
 
 // heap.c method signatures
 typedef struct node{
