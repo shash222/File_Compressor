@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <io.h>
+
+// heap.c method signatures
+typedef struct node{
+    char* word;
+    int freq;
+    struct node* left;
+    struct node* right;
+} node;
+
+
+node* head;
+
+int firstAvailable;
+int sizeOfArray;
+
+
+node removeMin();
+
+void insert(node* n);
+
+void printHeap();
+
+void createHeap();
+
+
+// hashmap.c method signatures
+
+
+
+
+
+//huffmanBuilder.c method signatures
+char* getCode(node n, char* c, int fd);
+
+char* getHuffmanCode(node n);
+
+node getSubtree();
+
+void createHuffmanTree();
