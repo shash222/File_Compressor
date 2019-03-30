@@ -37,10 +37,14 @@ void createHeap();
 
 
 //huffmanBuilder.c method signatures
-char* getCode(node n, char* c, int fd);
+void getCode(node n, char* c, int fd);
 
-char* getHuffmanCode(node n);
+void getHuffmanCode(node n);
 
 node getSubtree();
 
 void createHuffmanTree();
+
+void readBook();
+
+void compressString(char* file);
