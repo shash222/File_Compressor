@@ -7,14 +7,64 @@ typedef struct pair{
 
 pair* pairs;
 int numPairs;
+// max characters in word when compressing
 int maxCharacters;
+// max digits in code when decompressing
+int maxDigits;
 
-// returns code for single word
-char* getSingleCode(char* word){
-    if (word == NULL) return "";
+char* findWord(char* code){
     int i;
     for (i = 0; i < numPairs; i++){
-        if(strcmp(pairs[i].word, word) == 0) return pairs[i].code;
+        if (strcmp(code, pairs[i].code) == 0){
+            // printf("%s %s\n", code, pairs[i].code);
+            return pairs[i].word;
+        }
+    }
+    //return empty string if word not found
+    return "";
+}
+
+void decompressString(char* file){
+    // file descriptor for file to be read from
+    int fd = open(file, 00);
+    char newFile[strlen(file) - 3];
+    strncpy(newFile, file, strlen(file) - 4);
+    // printf("%d %d %s\n",strlen(file), strlen(newFile), newFile);
+
+    //temporarily hard coding path of newFile, need to fix later
+    strcpy(newFile, "./testFiles/test1.txt");
+
+
+    int fd2 = creat(newFile, 0777);
+    char* c = (char*) calloc(2, sizeof(char));
+    strcpy(c, "");
+    while(read(fd, c, 1) != 0) maxDigits++;
+    close(fd);
+    fd = open(file, 00);
+    char* code = (char*) calloc(maxDigits, sizeof(char));
+    strcpy(code, "");
+    int wordCount = 0;
+    while(read(fd, c, 1) != 0){
+        strcat(code, c);
+        char* word = findWord(code);
+        printf("%s\n", code);
+        if(strcmp(word, "") != 0){
+            printf("Not zero\n");
+            if (wordCount++ != 0) write(fd2, " ", 1);
+            write(fd2, word, strlen(word));
+            strcpy(code, "");
+        }
+    }
+}
+
+// returns code for single word
+void writeSingleCode(char* word, int fd){
+    if (word == NULL) return;
+    int i;
+    for (i = 0; i < numPairs; i++){
+        if(strcmp(pairs[i].word, word) == 0){
+            write(fd, pairs[i].code, strlen(pairs[i].code));
+        }
     }
 }
 
@@ -29,19 +79,19 @@ void compressString(char* file){
     }
     close(fd);
     char* input = (char*) calloc(spaces + 1, sizeof(char*));
-    char* ans = (char*) calloc (characters, sizeof(char));
-    char* token;
     strcpy(input, "");
-    strcpy(ans, "");
     fd = open(file, 00);
     int i;
     for (i = 0; i < characters; i++){
         read(fd, c, 1);
         strcat(input,c);
     }
-//    int fd = creat(strcat(file, ".hcz"), );
+    close(fd);
+    // compressed file file descriptor
+    char* newFile = strdup(file);
+    fd = creat(strcat(newFile, ".hcz"), 0777);
     for(i = 0; i < spaces; i++){
-        printf("%s", getSingleCode(i == 0 ? strtok(input, " ") : strtok(NULL, " ")));
+        writeSingleCode(i == 0 ? strtok(input, " ") : strtok(NULL, " "), fd);
     }
     pairs;
 }

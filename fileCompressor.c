@@ -17,7 +17,8 @@ int main(int argc, char** argv){
     // createHeap();
     // createHuffmanTree();
     readBook();
-    char* file = "./testFiles/test1.txt"; 
-    compressString(file);
+    char* file = "./testFiles/test1.txt.hcz"; 
+    // compressString(file);
+    decompressString("./testFiles/test1.txt.hcz");
     return 0;
 }

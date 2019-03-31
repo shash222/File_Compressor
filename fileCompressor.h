@@ -47,3 +47,5 @@ void createHuffmanTree();
 void readBook();
 
 void compressString(char* file);
+
+void decompressString(char* file);
