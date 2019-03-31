@@ -20,20 +20,22 @@
 struct node
 {
 	int data;
+	char * s;
 	struct node *next;
 	
 };
 
 struct node * hashtable[size];
 
-void  insert(struct node *head, int data, int key)
+void  insert(struct node *head,  char* str,int key)
 {
 	 if(head==NULL)
 	 {
 	 	head=(struct node *)malloc(sizeof(struct node));
-	 	head->data=data;
+	 	head->data=1;
+		head -> s = str;
 	 	head->next=NULL;
-	 	printf("inserted\n");
+	 	//printf("inserted\n");
 	 	hashtable[key]=head;
                 return;
 	 }
@@ -44,33 +46,28 @@ void  insert(struct node *head, int data, int key)
 	struct node *temp;
 	temp=head;
 
-        if(temp->data==data)
-       {
-             printf("duplicate\n");
-             return;
-       }
 
 
 	while(temp->next!=NULL)
 	{
-		if(temp->data==data)
+		if(temp->s==str)
 		{
-			printf("duplicate\n");
+			temp->data = (temp->data)+1;
 			return;
 		}
 			temp=temp->next;
 	}
 	    struct node *nxt=(struct node *)malloc(sizeof(struct node));
-	    nxt->data=data;
+	    nxt->data=1;
+		nxt->s = str;
 	    nxt->next=head;
-	    printf("inserted\n");
 	    hashtable[key]= nxt;
             return;
 	
 }
 
 
-bool search(struct node* head, int data)
+int search(struct node* head, char * str)
 {
 	struct node* temp;
 	temp=head;	
@@ -79,15 +76,15 @@ bool search(struct node* head, int data)
 	if(temp==NULL)
 	{
 		//printf("absent\n");
-		return false;
+		return -1;
 	}
    
    	while(temp!=NULL)
 	{   
-		if(temp->data==data)
+		if(temp->s==str)
 		{
 			//printf("present\n");
-			return true;
+			return temp->data;
 		}
 		//printf("searching %d temp %d\n", data, temp->data );
 		temp=temp->next;
@@ -95,5 +92,5 @@ bool search(struct node* head, int data)
 
 	//broke out and didnt find
 	//printf("absent\n");
-	return false;
+	return -1;
 }
