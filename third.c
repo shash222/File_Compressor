@@ -60,8 +60,8 @@ void  insert(struct node *head,  char* str,int key)
 	    struct node *nxt=(struct node *)malloc(sizeof(struct node));
 	    nxt->data=1;
 		nxt->s = str;
-	    nxt->next=head;
-	    hashtable[key]= nxt;
+	    nxt->next=NULL;
+	    temp->next = nxt;
             return;
 	
 }
