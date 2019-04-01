@@ -4,22 +4,12 @@ node* head;
 
 // Refers to first empty index in head array
 int firstAvailable = 0;
-int sizeOfArray = 11;
 
 void printHeap(){
     int i;
     for (i = 0; i < firstAvailable; i++){
         printf("%s %d\n", head[i].word, head[i].freq);
     }
-}
-
-//Doubles size of heap array if capacity has been reached
-void increaseArray(){
-    sizeOfArray *= 2;
-    node* temp = (node*) realloc(head, sizeOfArray);
-    if (temp != NULL) head = temp;
-    else printf("More memory cannot be reallocated!\n");
-    free(temp);
 }
 
 //sorts heap into min heap after insertion
@@ -73,9 +63,6 @@ void heapSortDeletion(){
 }
 
 void insert(node* n){
-    if (firstAvailable == sizeOfArray){
-        increaseArray();
-    }
     head[firstAvailable] = *n;
     firstAvailable++;
     // printf("abc%s %d %s %d %s %d\n", n -> word, n -> freq, n -> left ->word, n -> left -> freq, n -> right -> word, n -> right -> freq);

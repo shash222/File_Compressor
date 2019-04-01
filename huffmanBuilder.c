@@ -31,6 +31,7 @@ void decompressFile(char* file){
 
     //for some reason newFile has proper value if the print statement is here
     printf("%d %d %s %s\n", strlen(file), strlen(newFile), file, newFile);
+
     int fd2 = creat(newFile, 0777);
     char* c = (char*) calloc(2, sizeof(char));
     strcpy(c, "");

@@ -47,11 +47,13 @@ void comp(char* path){
 
 void getFiles(char* path, char op){
     DIR* directory = opendir(path);
+    if (directory == NULL) return;
     struct dirent* dir;
     while((dir = readdir(directory)) != NULL){
-        char* file = (char*) calloc(sizeof(path) + sizeof(dir -> d_name), sizeof(char));
+        char* file = (char*) calloc(sizeof(path) + sizeof(dir -> d_name), sizeof(char) + 1);
         if (path[strlen(path) - 1] != '/') strcat(path, "/");
-        strcat(strcpy(file, path), dir -> d_name);
+        strcpy(file, path);
+        strcat(file, dir -> d_name);
         if(strcmp(dir -> d_name, ".") != 0 && strcmp(dir -> d_name, "..") != 0){
             getFiles(file, op);
             if (file[strlen(file) - 1] != '/'){
@@ -63,7 +65,8 @@ void getFiles(char* path, char op){
                     decomp(file);
                 }
             }
-        } 
+        }
+        free(file);
     }
     closedir(directory);
 }
@@ -106,10 +109,5 @@ int main(int argc, char** argv){
         else if (decompress != 0) op = 'd';
         getFiles(path, op);
     }
-    // createHeap();
-    // createHuffmanTree();
-    // readBook();
-    // compressString(file);
-    // decompressString("./testFiles/test1.txt.hcz");
     return 0;
 }
