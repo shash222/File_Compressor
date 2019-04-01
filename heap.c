@@ -78,6 +78,7 @@ void insert(node* n){
     }
     head[firstAvailable] = *n;
     firstAvailable++;
+    // printf("abc%s %d %s %d %s %d\n", n -> word, n -> freq, n -> left ->word, n -> left -> freq, n -> right -> word, n -> right -> freq);
     heapSortInsertion();
 }
 
@@ -96,28 +97,18 @@ node removeMin(){
 
 
 void createHeap(){
-    head = (node*) calloc(sizeOfArray, sizeof(node));
-
-    node a = {"a", 5};
-    node b = {"dog", 9};
-    node c = {"cat", 12};
-    node d = {"button", 13};
-    node e = {"ball", 16};
-    node f = {"and", 45};
-    // node g = {"and1", 64};
-    // node h = {"and2", 2};
-    // node i = {"and3", 43};
-    // node j = {"and4", 56};
-    // node k = {"and5", 92};
-    // node l = {"and6", 1};
-    node arr[6] = {c, a, e, d, b, f};
-    int m;
-    for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
-        insert(&arr[m]);
+    tableNode* table = tableHead;
+    printf("Creating heap\n");
+    head = (node*) calloc(tableSize, sizeof(node));
+    int i;
+    node n;
+    while(table != NULL){
+        n.word = table -> word;
+        n.freq = table -> freq;
+        n.left = NULL;
+        n.right = NULL;
+        insert(&n);
+        table = table -> next;
     }
-    // for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
-    //     //printHeap();
-    //     printf("%s\n", removeMin() -> word);
-    //     printf("\n\n");
-    // }
+    printHeap();
 }
