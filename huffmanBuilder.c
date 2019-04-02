@@ -30,8 +30,8 @@ void decompressFile(char* file){
     strncpy(newFile, file, strlen(file) - 4);
 
     //for some reason newFile has proper value if the print statement is here
-    printf("%d %d %s %s\n", strlen(file), strlen(newFile), file, newFile);
-
+    // printf("%d %d %s %s\n", strlen(file), strlen(newFile), file, newFile);
+    
     int fd2 = creat(newFile, 0777);
     char* c = (char*) calloc(2, sizeof(char));
     strcpy(c, "");
@@ -178,14 +178,11 @@ node getSubtree(){
 }
 
 void createHuffmanTree(){
-    printf("a\n");
     node* subtree = (node*) malloc(sizeof(node));
-    printf("b\n");
     while(firstAvailable > 1){
         *subtree = getSubtree();
         insert(subtree);
     }
-    // printHuffman(head);
     free(subtree);
     getHuffmanCode(*head);
 }
