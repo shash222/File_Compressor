@@ -85,7 +85,6 @@ node removeMin(){
 
 void createHeap(){
     tableNode* table = tableHead;
-    printf("Creating heap\n");
     head = (node*) calloc(tableSize, sizeof(node));
     int i;
     node n;
@@ -97,5 +96,4 @@ void createHeap(){
         insert(&n);
         table = table -> next;
     }
-    printHeap();
 }

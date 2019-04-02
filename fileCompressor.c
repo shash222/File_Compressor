@@ -2,43 +2,31 @@
 
 
 void buildCodebook(char* path){
-        printf("%s\n", path);
-        int fd = open(path, 0);
-        char* word = (char*) calloc(25, sizeof(char));
-        char* dup;
-        char c[2];
-        strcpy(word, "");
-        strcpy(c, "");
-        int red = 0;
-        int count = 0;
-        // inserts words into hashtable
-        while((red = read(fd, c, 1)) != 0){
-            count+= red;
-            // printf("%d %d %s\n", count, red, c);
-            if (strcmp(c, " ") == 0 || strcmp(c, "\n") == 0 || strcmp(c, "\t") == 0){
-                // printf("%s\n", word);
-                dup = strdup(word);
-                insertIntoTable(dup);
-                strcpy(word, "");
-            }
-            else{
-                strcat(word, c);
-            }
+    int fd = open(path, 0);
+    char word[25];
+    strcpy(word, "");
+    char c[2];
+    strcpy(c, " ");
+    while(read(fd, c, 1) != 0){
+        // printf("%s\n", c);
+        if((strcmp(c, " ") == 0) || (strcmp(c, "\n") == 0) || (strcmp(c, "\t") == 0)){
+            insertIntoTable(strdup(word));
+            strcpy(word, "");
         }
-        // while loop does not insert last word into map
-        insertIntoTable(word);
-
-        // printTable();
-        createHeap();
-        // createHuffmanTree();
+        else{
+            strcat(word,c);
+        }
+    }
+    insertIntoTable(strdup(word));
+    createHeap();
+    createHuffmanTree();
+    close(fd);
 }
-
 
 void decomp(char* path){
     createPairsArray();
     decompressFile(path);
 }
-
 
 void comp(char* path){
     createPairsArray();
