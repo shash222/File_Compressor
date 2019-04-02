@@ -4,22 +4,12 @@ node* head;
 
 // Refers to first empty index in head array
 int firstAvailable = 0;
-int sizeOfArray = 11;
 
 void printHeap(){
     int i;
     for (i = 0; i < firstAvailable; i++){
         printf("%s %d\n", head[i].word, head[i].freq);
     }
-}
-
-//Doubles size of heap array if capacity has been reached
-void increaseArray(){
-    sizeOfArray *= 2;
-    node* temp = (node*) realloc(head, sizeOfArray);
-    if (temp != NULL) head = temp;
-    else printf("More memory cannot be reallocated!\n");
-    free(temp);
 }
 
 //sorts heap into min heap after insertion
@@ -73,11 +63,9 @@ void heapSortDeletion(){
 }
 
 void insert(node* n){
-    if (firstAvailable == sizeOfArray){
-        increaseArray();
-    }
     head[firstAvailable] = *n;
     firstAvailable++;
+    // printf("abc%s %d %s %d %s %d\n", n -> word, n -> freq, n -> left ->word, n -> left -> freq, n -> right -> word, n -> right -> freq);
     heapSortInsertion();
 }
 
@@ -96,28 +84,16 @@ node removeMin(){
 
 
 void createHeap(){
-    head = (node*) calloc(sizeOfArray, sizeof(node));
-
-    node a = {"a", 5};
-    node b = {"dog", 9};
-    node c = {"cat", 12};
-    node d = {"button", 13};
-    node e = {"ball", 16};
-    node f = {"and", 45};
-    // node g = {"and1", 64};
-    // node h = {"and2", 2};
-    // node i = {"and3", 43};
-    // node j = {"and4", 56};
-    // node k = {"and5", 92};
-    // node l = {"and6", 1};
-    node arr[6] = {c, a, e, d, b, f};
-    int m;
-    for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
-        insert(&arr[m]);
+    tableNode* table = tableHead;
+    head = (node*) calloc(tableSize, sizeof(node));
+    int i;
+    node n;
+    while(table != NULL){
+        n.word = table -> word;
+        n.freq = table -> freq;
+        n.left = NULL;
+        n.right = NULL;
+        insert(&n);
+        table = table -> next;
     }
-    // for (m = 0; m < (sizeof(arr)/sizeof(arr[0])); m++){
-    //     //printHeap();
-    //     printf("%s\n", removeMin() -> word);
-    //     printf("\n\n");
-    // }
 }

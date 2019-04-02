@@ -16,7 +16,6 @@ char* findWord(char* code){
     int i;
     for (i = 0; i < numPairs; i++){
         if (strcmp(code, pairs[i].code) == 0){
-            // printf("%s %s\n", code, pairs[i].code);
             return pairs[i].word;
         }
     }
@@ -24,16 +23,14 @@ char* findWord(char* code){
     return "";
 }
 
-void decompressString(char* file){
+void decompressFile(char* file){
     // file descriptor for file to be read from
     int fd = open(file, 00);
     char newFile[strlen(file) - 3];
     strncpy(newFile, file, strlen(file) - 4);
-    // printf("%d %d %s\n",strlen(file), strlen(newFile), newFile);
 
-    //temporarily hard coding path of newFile, need to fix later
-    strcpy(newFile, "./testFiles/test1.txt");
-
+    //for some reason newFile has proper value if the print statement is here
+    printf("%d %d %s %s\n", strlen(file), strlen(newFile), file, newFile);
 
     int fd2 = creat(newFile, 0777);
     char* c = (char*) calloc(2, sizeof(char));
@@ -47,17 +44,17 @@ void decompressString(char* file){
     while(read(fd, c, 1) != 0){
         strcat(code, c);
         char* word = findWord(code);
-        printf("%s\n", code);
         if(strcmp(word, "") != 0){
-            printf("Not zero\n");
             if (wordCount++ != 0) write(fd2, " ", 1);
             write(fd2, word, strlen(word));
             strcpy(code, "");
         }
     }
+    close(fd);
+    close(fd2);
 }
 
-// returns code for single word
+// writes code for single word into .hcz file of file to be compressed
 void writeSingleCode(char* word, int fd){
     if (word == NULL) return;
     int i;
@@ -68,7 +65,7 @@ void writeSingleCode(char* word, int fd){
     }
 }
 
-void compressString(char* file){
+void compressFile(char* file){
     int fd = open(file, 00);
     int characters = 0;
     int spaces = 0;
@@ -93,7 +90,6 @@ void compressString(char* file){
     for(i = 0; i < spaces; i++){
         writeSingleCode(i == 0 ? strtok(input, " ") : strtok(NULL, " "), fd);
     }
-    pairs;
 }
 
 // sets size of pairs array and value of maxCharacters
@@ -161,13 +157,14 @@ void getHuffmanCode(node n){
     char c[1] = "";
     int fd = creat("HuffmanCodebook", 0777);
     getCode(n, c, fd);
-    readFile(fd);
+    // readFile(fd);
 }
 
-void printHuffman(node n){
-    printf("%s %d\n", n.word, n.freq);
-    if (n.left != NULL) printHuffman(*(n.left));
-    if (n.right != NULL) printHuffman(*(n.right));
+
+void printHuffman(node* n){
+    printf("%s %d\n", n -> word, n -> freq);
+    if (n -> left != NULL) printHuffman((n -> left));
+    if (n -> right != NULL) printHuffman((n -> right));
 }
 
 node getSubtree(){
@@ -176,19 +173,23 @@ node getSubtree(){
     *left = removeMin();
     *right = removeMin();
     node subtree = {"", left -> freq + right -> freq, left, right};
+    // printf("%s %d %s %d %s %d\n", left -> word, left -> freq, right -> word, right -> freq, subtree. word, subtree.freq);
     return subtree;
 }
 
 void createHuffmanTree(){
+    printf("a\n");
+    node* subtree = (node*) malloc(sizeof(node));
+    printf("b\n");
     while(firstAvailable > 1){
-        node* subtree = (node*) malloc(sizeof(node));
         *subtree = getSubtree();
         insert(subtree);
     }
-    // printHuffman(*head);
+    // printHuffman(head);
+    free(subtree);
     getHuffmanCode(*head);
 }
 
-void readBook(){
+void createPairsArray(){
     readFile(open("HuffmanCodebook", 00));
 }
