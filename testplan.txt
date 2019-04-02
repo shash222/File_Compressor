@@ -1,0 +1,59 @@
+Usama Sajid(us71)
+Salman Hashmi(sah285)
+
+
+Filecompressor testplan: 
+
+3 Testcases used: 
+
+
+testcase 1 where build(-b), compress(-c), decompress(-d) were ran on single/individual stand alone files
+E.G: filecompressor -(b,c,d) <test.txt>
+
+testcase 2 where build(-b), compress(-c), decompress(-d) were ran on a directory with NO subdirectories
+E.G: filecompressor -R -(b,c,d) <files/>
+where files -
+            - test1.txt
+            - test2.txt
+            - test3.txt
+            - test4.txt
+
+
+testcase 3 where build(-b), compress(-c), decompress(-d) were ran on a directory WITH subdirectories
+E.G: filecompressor -R -(b,c,d) <files/>
+where files -
+5           - test1.txt
+            - test2.txt
+            - test3.txt
+            - subFiles/
+                    - test4.txt
+                    - test5.txt
+                    - test6.txt
+
+
+testcase 4 where build(-b), compress(-c), decompress(-d) were ran on a directory with MULTIPLE subdirectories
+E.G: filecompressor -R -(b,c,d) <files/>
+where files -
+            - test1.txt
+            - test2.txt
+            - test3.txt
+            - subFiles/
+                    - test4.txt
+                    - test5.txt
+                    - test6.txt
+            - subFiles2/
+                    - test7.txt
+                    - test8.txt
+                    - test9.txt
+
+Testcase 5 where WRONG INPUT was inserted: 
+E.G: filecompressor -R -b <test.txt> // test.txt not a directory 
+E.G: filecompressor -R <test.txt> // not flag set -(b,c,d) && test.txt not a directory
+E.G: filecompressor -R <test.txt> // no flas set -(b,c,d)
+E.G: filecompressor -R // no file or flag  
+E.G: filecompressor -b // no file 
+E.G: filecompressor -w // wrong flag 
+
+^^^ 
+Eul Krzyzanowski's Paul Krzyzanowski's .G: filecompressor -b // no file 
+For all above testcases, the result works correctly, producing correct output or an error

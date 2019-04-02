@@ -42,7 +42,7 @@ void getFiles(char* path, char op){
         if (path[strlen(path) - 1] != '/') strcat(path, "/");
         strcpy(file, path);
         strcat(file, dir -> d_name);
-        printf("%s\n", file);
+       // printf("%s\n", file);
         if(strcmp(dir -> d_name, ".") != 0 && strcmp(dir -> d_name, "..") != 0){
             getFiles(file, op);
             if (file[strlen(file) - 1] != '/'){
