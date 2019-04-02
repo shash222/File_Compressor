@@ -11,7 +11,7 @@ testcase 1 where build(-b), compress(-c), decompress(-d) were ran on single/indi
 E.G: filecompressor -(b,c,d) <test.txt>
 
 testcase 2 where build(-b), compress(-c), decompress(-d) were ran on a directory with NO subdirectories
-E.G: filecompressor -(b,c,d) <files/>
+E.G: filecompressor -R -(b,c,d) <files/>
 where files -
             - test1.txt
             - test2.txt
@@ -20,7 +20,7 @@ where files -
 
 
 testcase 3 where build(-b), compress(-c), decompress(-d) were ran on a directory WITH subdirectories
-E.G: filecompressor -(b,c,d) <files/>
+E.G: filecompressor -R -(b,c,d) <files/>
 where files -
 5           - test1.txt
             - test2.txt
@@ -32,7 +32,7 @@ where files -
 
 
 testcase 4 where build(-b), compress(-c), decompress(-d) were ran on a directory with MULTIPLE subdirectories
-E.G: filecompressor -(b,c,d) <files/>
+E.G: filecompressor -R -(b,c,d) <files/>
 where files -
             - test1.txt
             - test2.txt
