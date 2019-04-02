@@ -18,8 +18,6 @@ void buildCodebook(char* path){
         }
     }
     insertIntoTable(strdup(word));
-    createHeap();
-    createHuffmanTree();
     close(fd);
 }
 
@@ -36,16 +34,21 @@ void comp(char* path){
 void getFiles(char* path, char op){
     DIR* directory = opendir(path);
     if (directory == NULL) return;
+//     char command[50];
+//    strcpy( command, "find data/  -exec cat {} \; > uber.json" );
     struct dirent* dir;
     while((dir = readdir(directory)) != NULL){
         char* file = (char*) calloc(sizeof(path) + sizeof(dir -> d_name), sizeof(char) + 1);
         if (path[strlen(path) - 1] != '/') strcat(path, "/");
         strcpy(file, path);
         strcat(file, dir -> d_name);
+        printf("%s\n", file);
         if(strcmp(dir -> d_name, ".") != 0 && strcmp(dir -> d_name, "..") != 0){
             getFiles(file, op);
             if (file[strlen(file) - 1] != '/'){
-                if (op == 'b') buildCodebook(file);
+                if (op == 'b'){
+                    buildCodebook(file);
+                }
                 else if (op == 'c'){
                     comp(file);
                 }
@@ -55,6 +58,10 @@ void getFiles(char* path, char op){
             }
         }
         free(file);
+    }
+    if (op == 'b'){
+        createHeap();
+        createHuffmanTree();
     }
     closedir(directory);
 }
@@ -86,7 +93,11 @@ int main(int argc, char** argv){
     // printf("%d %d %d\n", build, compress, decompress);
 
     if(recursive == 0){
-        if (build != 0) buildCodebook(path);
+        if (build != 0){
+            buildCodebook(path);
+            createHeap();
+            createHuffmanTree();
+        }
         else if (compress != 0) comp(path);
         else if (decompress != 0) decomp(path);
     }
